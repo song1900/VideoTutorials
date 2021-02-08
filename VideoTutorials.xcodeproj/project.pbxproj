@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		F63CC4FF25D16F47006A6B05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC4FE25D16F47006A6B05 /* AppDelegate.swift */; };
 		F63CC50125D16F47006A6B05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC50025D16F47006A6B05 /* SceneDelegate.swift */; };
-		F63CC50325D16F47006A6B05 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC50225D16F47006A6B05 /* ViewController.swift */; };
-		F63CC50625D16F47006A6B05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F63CC50425D16F47006A6B05 /* Main.storyboard */; };
 		F63CC50825D16F48006A6B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F63CC50725D16F48006A6B05 /* Assets.xcassets */; };
-		F63CC50B25D16F48006A6B05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F63CC50925D16F48006A6B05 /* LaunchScreen.storyboard */; };
+		F63CC52D25D187FF006A6B05 /* PlayVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC52C25D187FF006A6B05 /* PlayVideoViewController.swift */; };
+		F63CC53025D18891006A6B05 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC52F25D18891006A6B05 /* Coordinator.swift */; };
+		F63CC53325D188AB006A6B05 /* VideoHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F63CC53225D188AB006A6B05 /* VideoHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F63CC4FB25D16F47006A6B05 /* VideoTutorials.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoTutorials.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F63CC4FE25D16F47006A6B05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F63CC50025D16F47006A6B05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F63CC50225D16F47006A6B05 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F63CC50525D16F47006A6B05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F63CC50725D16F48006A6B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F63CC50A25D16F48006A6B05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F63CC50C25D16F48006A6B05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F63CC52C25D187FF006A6B05 /* PlayVideoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoViewController.swift; sourceTree = "<group>"; };
+		F63CC52F25D18891006A6B05 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F63CC53225D188AB006A6B05 /* VideoHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,39 @@
 		F63CC4FD25D16F47006A6B05 /* VideoTutorials */ = {
 			isa = PBXGroup;
 			children = (
-				F63CC4FE25D16F47006A6B05 /* AppDelegate.swift */,
-				F63CC50025D16F47006A6B05 /* SceneDelegate.swift */,
-				F63CC50225D16F47006A6B05 /* ViewController.swift */,
-				F63CC50425D16F47006A6B05 /* Main.storyboard */,
-				F63CC50725D16F48006A6B05 /* Assets.xcassets */,
-				F63CC50925D16F48006A6B05 /* LaunchScreen.storyboard */,
-				F63CC50C25D16F48006A6B05 /* Info.plist */,
+				F63CC52A25D187C7006A6B05 /* Controllers */,
+				F63CC52925D187BC006A6B05 /* AppDelegate */,
+				F63CC52725D187AD006A6B05 /* Resources */,
+				F63CC52F25D18891006A6B05 /* Coordinator.swift */,
+				F63CC53225D188AB006A6B05 /* VideoHelper.swift */,
 			);
 			path = VideoTutorials;
+			sourceTree = "<group>";
+		};
+		F63CC52725D187AD006A6B05 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F63CC50725D16F48006A6B05 /* Assets.xcassets */,
+				F63CC50C25D16F48006A6B05 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F63CC52925D187BC006A6B05 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				F63CC4FE25D16F47006A6B05 /* AppDelegate.swift */,
+				F63CC50025D16F47006A6B05 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		F63CC52A25D187C7006A6B05 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F63CC52C25D187FF006A6B05 /* PlayVideoViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,9 +148,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F63CC50B25D16F48006A6B05 /* LaunchScreen.storyboard in Resources */,
 				F63CC50825D16F48006A6B05 /* Assets.xcassets in Resources */,
-				F63CC50625D16F47006A6B05 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,32 +159,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F63CC50325D16F47006A6B05 /* ViewController.swift in Sources */,
+				F63CC53025D18891006A6B05 /* Coordinator.swift in Sources */,
 				F63CC4FF25D16F47006A6B05 /* AppDelegate.swift in Sources */,
 				F63CC50125D16F47006A6B05 /* SceneDelegate.swift in Sources */,
+				F63CC53325D188AB006A6B05 /* VideoHelper.swift in Sources */,
+				F63CC52D25D187FF006A6B05 /* PlayVideoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		F63CC50425D16F47006A6B05 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F63CC50525D16F47006A6B05 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		F63CC50925D16F48006A6B05 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F63CC50A25D16F48006A6B05 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F63CC50D25D16F48006A6B05 /* Debug */ = {
@@ -288,7 +293,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E98D6ZNGDP;
-				INFOPLIST_FILE = VideoTutorials/Info.plist;
+				INFOPLIST_FILE = VideoTutorials/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -307,7 +312,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E98D6ZNGDP;
-				INFOPLIST_FILE = VideoTutorials/Info.plist;
+				INFOPLIST_FILE = VideoTutorials/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
