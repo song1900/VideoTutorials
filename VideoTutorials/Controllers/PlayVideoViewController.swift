@@ -59,12 +59,26 @@ class PlayVideoViewController: UIViewController {
     }
     
     // MARK: - Actions
-    @objc func actionSelectAndPlay() {
+    @objc func actionSelectAndPlay() { // video 선택
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
     }
     
-    @objc func actionRecrodAndSave() {
+    @objc func actionRecrodAndSave() { // video 촬영
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .camera)
+    }
+    
+    // video 저장, 저장 결과 alert
+    @objc func video(_ videoPath: String,
+                     didFinishSavingWithError error: Error?,
+                     contextInfo info: AnyObject
+    ) {
+        print(videoPath)
+        let title = (error == nil) ? "Success" : "Error"
+        let message = (error == nil) ? "Video was saved" : "Video failed to save"
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 
 }
@@ -73,9 +87,8 @@ class PlayVideoViewController: UIViewController {
 extension PlayVideoViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 선택한 비디오 처리
-        
         switch picker.sourceType {
-        case .photoLibrary:
+        case .photoLibrary: // video 선택
             guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
                   mediaType == (kUTTypeMovie as String),
                   let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
@@ -86,7 +99,8 @@ extension PlayVideoViewController: UIImagePickerControllerDelegate {
                 vcPlayer.player = player
                 self.present(vcPlayer, animated: true, completion: nil)
             }
-        case .camera:
+            
+        case .camera: // video 촬영
             dismiss(animated: true, completion: nil)
             
             guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
@@ -104,17 +118,7 @@ extension PlayVideoViewController: UIImagePickerControllerDelegate {
         
     }
     
-    @objc func video(_ videoPath: String,
-                     didFinishSavingWithError error: Error?,
-                     contextInfo info: AnyObject
-    ) {
-        let title = (error == nil) ? "Success" : "Error"
-        let message = (error == nil) ? "Video was saved" : "Video failed to save"
-        
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
+    
 }
 
 // MARK: - UINavigationControllerDelegate
