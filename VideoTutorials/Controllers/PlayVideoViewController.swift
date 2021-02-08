@@ -27,6 +27,7 @@ class PlayVideoViewController: UIViewController {
         bt.setTitleColor(.black, for: .normal)
         bt.layer.borderWidth = 1.0
         bt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.addTarget(self, action: #selector(actionRecrodAndSave), for: .touchUpInside)
         return bt
     }()
     
@@ -61,6 +62,10 @@ class PlayVideoViewController: UIViewController {
     @objc func actionSelectAndPlay() {
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
     }
+    
+    @objc func actionRecrodAndSave() {
+        VideoHelper.startMediaBrowser(delegate: self, sourceType: .camera)
+    }
 
 }
 
@@ -68,17 +73,47 @@ class PlayVideoViewController: UIViewController {
 extension PlayVideoViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 선택한 비디오 처리
-        guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
-              mediaType == (kUTTypeMovie as String),
-              let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
         
-        dismiss(animated: true) {
-            let player = AVPlayer(url: url)
-            let vcPlayer = AVPlayerViewController()
-            vcPlayer.player = player
-            self.present(vcPlayer, animated: true, completion: nil)
+        switch picker.sourceType {
+        case .photoLibrary:
+            guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
+                  mediaType == (kUTTypeMovie as String),
+                  let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL else { return }
+            
+            dismiss(animated: true) {
+                let player = AVPlayer(url: url)
+                let vcPlayer = AVPlayerViewController()
+                vcPlayer.player = player
+                self.present(vcPlayer, animated: true, completion: nil)
+            }
+        case .camera:
+            dismiss(animated: true, completion: nil)
+            
+            guard let mediaType = info[UIImagePickerController.InfoKey.mediaType] as? String,
+                  mediaType == (kUTTypeMovie as String),
+                  let url = info[UIImagePickerController.InfoKey.mediaURL] as? URL,
+                  UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(url.path) else { return }
+            
+            
+            UISaveVideoAtPathToSavedPhotosAlbum(url.path, self, #selector(video), nil)
+            
+        default:
+            break
         }
         
+        
+    }
+    
+    @objc func video(_ videoPath: String,
+                     didFinishSavingWithError error: Error?,
+                     contextInfo info: AnyObject
+    ) {
+        let title = (error == nil) ? "Success" : "Error"
+        let message = (error == nil) ? "Video was saved" : "Video failed to save"
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 
