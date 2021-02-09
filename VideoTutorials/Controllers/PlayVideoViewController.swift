@@ -81,7 +81,7 @@ class PlayVideoViewController: UIViewController {
     private lazy var mergeActionStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [loadVideo01Button, loadVideo02Button, loadMusicButton])
         sv.axis = .horizontal
-        sv.spacing = 5
+        sv.spacing = 3
         return sv
     }()
     
@@ -129,6 +129,7 @@ class PlayVideoViewController: UIViewController {
     
     @objc func actionLoadMusic() {
         let mediaPickerController = MPMediaPickerController(mediaTypes: .any)
+        mediaPickerController.delegate = self
         mediaPickerController.prompt = "Select Audio"
         present(mediaPickerController, animated: true, completion: nil)
     }
@@ -196,4 +197,34 @@ extension PlayVideoViewController: UIImagePickerControllerDelegate {
 // MARK: - UINavigationControllerDelegate
 extension PlayVideoViewController: UINavigationControllerDelegate {
     
+}
+
+// MARK: - MPMediaPickerControllerDelegate
+extension PlayVideoViewController: MPMediaPickerControllerDelegate {
+    func mediaPicker(_ mediaPicker: MPMediaPickerController, didPickMediaItems mediaItemCollection: MPMediaItemCollection) {
+        dismiss(animated: true) {
+            let selectedAudios = mediaItemCollection.items
+            guard let audio = selectedAudios.first else { return }
+            
+            let title: String
+            let message: String
+            if let url = audio.value(forProperty: MPMediaItemPropertyAssetURL) as? URL {
+                self.audioAsset = AVAsset(url: url)
+                title = "Asset Loaded"
+                message = "Audio Loaded"
+            } else {
+                self.audioAsset = nil
+                title = "Asset Not Available"
+                message = "Audio Not Loaded"
+            }
+            
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func mediaPickerDidCancel(_ mediaPicker: MPMediaPickerController) {
+        dismiss(animated: true, completion: nil)
+    }
 }
