@@ -8,9 +8,16 @@
 import UIKit
 import AVKit
 import MobileCoreServices
+import MediaPlayer
 
 class PlayVideoViewController: UIViewController {
     // MARK: - Properties
+    var firstAsset: AVAsset?
+    var secondAsset: AVAsset?
+    var audioAsset: AVAsset?
+    var loadingAssetOne = false
+    var mergingVideo = false
+    
     lazy var selectAndPlayButton: UIButton = {
         let bt = UIButton()
         bt.setTitle("Select And Play Video", for: .normal)
@@ -31,8 +38,55 @@ class PlayVideoViewController: UIViewController {
         return bt
     }()
     
+    lazy var mergeButton: UIButton = {
+        let bt = UIButton()
+        bt.setTitle("Merge Video", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.layer.borderWidth = 1.0
+        bt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.addTarget(self, action: #selector(actionRecrodAndSave), for: .touchUpInside)
+        return bt
+    }()
+    
+    lazy var loadVideo01Button: UIButton = {
+        let bt = UIButton()
+        bt.setTitle("Load video 01", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.layer.borderWidth = 1.0
+        bt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.addTarget(self, action: #selector(actionLoadVideo), for: .touchUpInside)
+        return bt
+    }()
+    
+    lazy var loadVideo02Button: UIButton = {
+        let bt = UIButton()
+        bt.setTitle("Load video 02", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.layer.borderWidth = 1.0
+        bt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.addTarget(self, action: #selector(actionLoadVideo), for: .touchUpInside)
+        return bt
+    }()
+    
+    lazy var loadMusicButton: UIButton = {
+        let bt = UIButton()
+        bt.setTitle("Load music", for: .normal)
+        bt.setTitleColor(.black, for: .normal)
+        bt.layer.borderWidth = 1.0
+        bt.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        bt.addTarget(self, action: #selector(actionLoadMusic), for: .touchUpInside)
+        return bt
+    }()
+    
+    private lazy var mergeActionStackView: UIStackView = {
+        let sv = UIStackView(arrangedSubviews: [loadVideo01Button, loadVideo02Button, loadMusicButton])
+        sv.axis = .horizontal
+        sv.spacing = 5
+        return sv
+    }()
+    
     private lazy var stackView: UIStackView = {
-        let sv = UIStackView(arrangedSubviews: [selectAndPlayButton, recordAndSaveButton])
+        let sv = UIStackView(arrangedSubviews: [selectAndPlayButton, recordAndSaveButton, mergeButton, mergeActionStackView])
         sv.axis = .vertical
         sv.spacing = 50
         return sv
@@ -66,6 +120,24 @@ class PlayVideoViewController: UIViewController {
     @objc func actionRecrodAndSave() { // video 촬영
         VideoHelper.startMediaBrowser(delegate: self, sourceType: .camera)
     }
+    
+    
+    @objc func actionLoadVideo() {
+        mergingVideo = true
+        VideoHelper.startMediaBrowser(delegate: self, sourceType: .savedPhotosAlbum)
+    }
+    
+    @objc func actionLoadMusic() {
+        let mediaPickerController = MPMediaPickerController(mediaTypes: .any)
+        mediaPickerController.prompt = "Select Audio"
+        present(mediaPickerController, animated: true, completion: nil)
+    }
+    
+    @objc func actionMerge() {
+        
+    }
+    
+    
     
     // video 저장, 저장 결과 alert
     @objc func video(_ videoPath: String,
