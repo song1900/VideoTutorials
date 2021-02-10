@@ -2,14 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Access to Photo Library to save Video</string>
+	<key>kTCCServiceMediaLibrary</key>
+	<string>Access to Apple Music Library</string>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>음악 파일 첨부를 위한 앨범 사용 권한</string>
+	<string>Access to Music Library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>사진 및 동영상 첨부를 위한 앨범 사용 권한</string>
+	<string>Access to Photo Library</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>동영상 촬영 및 음성인식을 위한 권한 필요</string>
+	<string>Access to Mic to record Video sound</string>
 	<key>NSCameraUsageDescription</key>
-	<string>사진 및 동영상 촬영을 위한 카메라 사용 권한</string>
+	<string>Access to Camera to save Video</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

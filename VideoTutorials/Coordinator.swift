@@ -15,7 +15,10 @@ class Coordinator {
     }
     
     func start() {
-        window.rootViewController = PlayVideoViewController()
+        let rootVC = RootViewController()
+        let navigationRootVC = UINavigationController(rootViewController: rootVC)
+        window.rootViewController = navigationRootVC
         window.makeKeyAndVisible()
+        
     }
 }
